@@ -12,7 +12,7 @@ void simpleVariables(void)
 	int i = 10;
 	float f = 3.142;
 	char c = 'H';
-	printf("i:%d f:%f c:%c\n", i,f,c);
+	printf("i:%d f:%f c:%c\n", i, f, c);
 
 	char telnummer[15];
 	strcpy(telnummer, "02513315");
@@ -213,7 +213,7 @@ OUT:
 // Macros
 #define VALUE 134.3
 #ifndef _WIN32
-	#define max(A, B) ((A) > (B) ? (A) : (B))
+#define max(A, B) ((A) > (B) ? (A) : (B))
 #endif
 
 /**
@@ -264,17 +264,18 @@ void errorHandlingWithErrno(void)
 int main(void)
 {
 	simplePrints();
-	// simpleVariables();
-	// simpleArithmetic();
-	// simpleBranch();
-	// simpleSwitch();
-	// simpleLoops(5);
+	simpleVariables();
+	simpleArithmetic();
+	simpleBranch();
+	simpleSwitch();
+	simpleLoops(5);
 	sizeOfs();
-	// c_fahrenheit();
-	// bitwiseOperations();
-	// gotoConsideredHarmful();
-	// preprocessorMacros();
-	// errorHandling();
-	// errorHandlingWithErrno();
+	c_fahrenheit();
+	bitwiseOperations();
+	gotoConsideredHarmful();
+	preprocessorMacros();
+	errorHandling();
+
+	errorHandlingWithErrno();
 	return 0;
 }

@@ -1,0 +1,26 @@
+[project]
+name = "fomws2026aud"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Levin Rüßmann", email = "Levin13c@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "graphviz>=0.21",
+    "ipykernel>=7.3.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.11.2",
+    "networkx>=3.7",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "pyvis>=0.3.2",
+]
+
+[project.scripts]
+fomws2026aud = "fomws2026aud:main"
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
