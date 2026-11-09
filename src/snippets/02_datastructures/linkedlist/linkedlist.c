@@ -88,22 +88,44 @@ node *linkedlist_insert_after(LinkedList *l, node *item, char value)
 }
 
 #if defined(__GNUC__) || defined(__clang__)
-#  pragma GCC diagnostic push
-#  pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
 char linkedlist_remove_after(LinkedList *l, node *item)
 {
-    // TODO
-    return '\0';
+    node *node_to_remove = item->next;
+    char value = *node_to_remove->value;
+
+    if (node_to_remove == l->tail)
+    {
+        return '\0';
+    }
+
+    if (node_to_remove->next == l->tail)
+    {
+        l->tail->next = item;
+    }
+
+    item->next = node_to_remove->next;
+
+    linkedlist_destroy_node(node_to_remove);
+
+    return value;
 }
 
 size_t linkedlist_size(const LinkedList *l)
 {
-    // TODO
-    return 0;
+    node *current_node = l->head;
+    size_t anzahl = 0;
+    while (current_node->next != l->tail->next)
+    {
+        current_node = current_node->next;
+        anzahl++;
+    }
+    return anzahl;
 }
 
 #if defined(__GNUC__) || defined(__clang__)
-#  pragma GCC diagnostic pop
+#pragma GCC diagnostic pop
 #endif

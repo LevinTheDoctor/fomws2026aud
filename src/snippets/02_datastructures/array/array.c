@@ -25,15 +25,15 @@ void array_init(Array *a, int capacity)
 {
     a->capacity = capacity;
     a->size = 0;
-    a->elements = (char*) malloc(capacity);
+    a->elements = (char *)malloc(capacity);
 }
 
-void array_resize(Array* a, int new_capacity)
+void array_resize(Array *a, int new_capacity)
 {
     if (new_capacity != a->capacity)
     {
         // Allocate new memory
-        char* new_elements = (char*)malloc(new_capacity);
+        char *new_elements = (char *)malloc(new_capacity);
         // Copy data from old to new memory
         memcpy(new_elements, a->elements, a->size);
         // // "Manual way":
@@ -68,9 +68,9 @@ void array_insert(Array *a, int idx, char value)
     a->size++;
 }
 
-char* array_at(const Array *a, int idx)
+char *array_at(const Array *a, int idx)
 {
-    if((idx > a->capacity) || (idx > a->size))
+    if ((idx > a->capacity) || (idx > a->size))
     {
         printf("Out of bounds.");
         return "\0";
@@ -79,31 +79,51 @@ char* array_at(const Array *a, int idx)
     return &(a->elements[idx]);
 }
 
-void array_push_back(Array* a, char value)
+void array_push_back(Array *a, char value)
 {
     array_insert(a, a->size, value);
 }
 
-char array_pop_back(Array* a)
+char array_pop_back(Array *a)
 {
     return array_remove(a, a->size - 1);
 }
 
 #if defined(__GNUC__) || defined(__clang__)
-#  pragma GCC diagnostic push
+#pragma GCC diagnostic push
 // Ignore -Wunused-parameter while function not yet implemented - remove me
-#  pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
-char array_remove(Array* a, int idx)
+char array_remove(Array *a, int idx)
 {
-    // TODO
-    return '\0';
+    if (idx > a->size || idx < 0)
+    {
+        printf("Out of Bounce");
+        return '\0';
+    }
+    char value = *(array_at(a, idx));
+
+    a->size -= 1;
+
+    for (int i = idx; i >= a->size; ++i)
+    {
+        a->elements[i] = a->elements[i + 1];
+    }
+
+    if (a->size <= a->capacity / 4)
+    {
+        int new_capacity = a->capacity / 2;
+        array_resize(a, new_capacity);
+        a->capacity = new_capacity;
+    }
+
+    return value;
 }
 #if defined(__GNUC__) || defined(__clang__)
-#  pragma GCC diagnostic pop
+#pragma GCC diagnostic pop
 #endif
 
-int array_find(Array* a, const char c)
+int array_find(Array *a, const char c)
 {
     for (int i = 0; i < a->capacity; i++)
     {
