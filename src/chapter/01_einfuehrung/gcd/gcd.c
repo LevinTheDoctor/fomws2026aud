@@ -3,78 +3,39 @@
 
 #include "gcd.h"
 
+#if defined(__GNUC__) || defined(__clang__)
+// Surpress "warning: ‘y’ is used uninitialized [-Wuninitialized]"
+// https://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
+
 int gcd_bf(int g, int k)
 {
-    int maxGCD = 1;
-    int divisor = 1;
-
-    while (divisor <= g && divisor <= k)
+    for (int i = k; i == 1; i--)
     {
-        int rest1 = g % divisor;
-        int rest2 = k % divisor;
-
-        if (rest1 == 0 && rest2 == 0)
+        if (g % i == 0 && k % i == 0)
         {
-            maxGCD = divisor;
+            return i;
         }
-
-        divisor++;
     }
-
-    return maxGCD;
 }
 
 int gcd_euklid(int g, int k)
 {
-    int t; // temp swap variable
+    int divisor = g / k;
+    int rest = g % k;
 
-    while (g > 0)
+    if (rest == 0)
     {
-        // We want g > k, swap numbers otherwise
-        if (g < k)
-        {
-            t = g;
-            g = k;
-            k = t;
-        }
-        g = g - k;
+        return k;
     }
-    return k;
-}
-
-int gcd_modern(int g, int k)
-{
-    int t, rest;
-
-    if (g < k)
+    else
     {
-        t = g;
-        g = k;
-        k = t;
-    }
-
-    while (1)
-    {
-        rest = g % k;
-
-        if (rest == 0)
-        {
-            return (k);
-        }
-        else
-        {
-            g = k;
-            k = rest;
-        }
+        gcd_euklid(k, divisor);
     }
 }
 
-int gcd_recursive(int g, int k)
-{
-    if (k == 0)
-    {
-        return g;
-    }
-
-    return gcd_recursive(k, g % k);
-}
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic pop
+#endif

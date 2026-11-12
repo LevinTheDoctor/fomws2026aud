@@ -1,35 +1,20 @@
 #include <stdio.h>
 
-/**
- * Convert Fahrenheit input value to Celsius value.
- *
- * This will read a float value from the user and calculate the value in degree Celsius 
- * with the following formula:
- * \f$ T_C = (T_F - 32) \cdot \frac{5}{9} \f$
- * 
- * @return 1 in case of errors.
- */
-int convertFahrenheitToCelcius(void)
+float fahrenheit_zu_celsius(float fahrenheit)
 {
-	float f;
-	float c;
-
-	printf("Enter a value in Fahrenheit: \n");
-	// Read value - with error handling
-	if (! scanf("%f", &f))
-	{
-		printf("Error in reading input");
-		return 1;
-	}
-	// Apply formula
-	c = ((f-32)*5)/9;
-
-	printf("%f degree Fahrenheit is %f degree Celcius.", f, c);
-
-	return 0;
+    float celsius = (fahrenheit - 32) * 5 / 9;
+    return celsius;
 }
 
-int main(void)
+int main()
 {
-	return convertFahrenheitToCelcius();
+    printf("Gebe bitte eine temperatur in fahrenheit ein:");
+
+    float fahrenheit;
+    scanf("%f", &fahrenheit);
+
+    float celsius = fahrenheit_zu_celsius(fahrenheit);
+    printf("Diene eingeben %f Fahrenheit sind %f in Celsius.", fahrenheit, celsius);
+
+    return 0;
 }
